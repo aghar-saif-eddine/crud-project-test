@@ -16,7 +16,19 @@ pipeline {
                 }
             }
         }
-
+        stage('Push the Docker Image to DockerHub') {
+            steps {
+                script {
+                    // Use Jenkins credentials for secure Docker login
+                    withCredentials([string(credentialsId: 'docker_hub', variable: 'docker_hub_password')]) {
+                        // Log into Docker Hub
+                        sh 'echo "$docker_hub_password" | docker login -u saif1198 --password-stdin'
+                    }
+                    // Push the image to Docker Hub
+                    sh 'docker push $DOCKER_IMAGE'
+                }
+            }
+        }
         stage('Push the Docker Image to DockerHUb') {
             steps {
                 script {
