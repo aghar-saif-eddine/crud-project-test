@@ -26,3 +26,5 @@
 .env
 .idea
 /.idea
+# Local Netlify folder
+.netlify
