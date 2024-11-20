@@ -11,8 +11,8 @@ pipeline {
         stage('Build and Tag Docker Image') {
             steps {
                 script {
-                    sh 'docker build . -t dashbordApp'
-                    sh 'docker tag dashbordApp saif1198/dashbordApp'
+                    sh 'docker build . -t symfonyapp'
+                    sh 'docker tag symfonyapp saif1198/symfonyapp'
                 }
             }
         }
@@ -23,7 +23,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'docker_hub', variable: 'docker_hub')]) {
                     sh 'docker login -u saif1198 -p ${docker_hub}'
 }
-                    sh 'docker push saif1198/dashbordApp'
+                    sh 'docker push saif1198/symfonyapp'
                 }
             }
         }
