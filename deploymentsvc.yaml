@@ -22,17 +22,15 @@ spec:
         ports:
         - containerPort: 80
         
-        
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: symfonyapp-service
 spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80  # Mappé au port d'exposition du conteneur
   selector:
     app: symfonyapp-deployment
-  ports:
-    - protocol: TCP
-      port: 80      # Port exposed by the service
-      targetPort: 80 # Port the container is listening on
-  type: NodePort   # If you want the service accessible externally

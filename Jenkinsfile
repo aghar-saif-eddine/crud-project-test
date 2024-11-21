@@ -34,12 +34,9 @@ pipeline {
         stage('Deploy deployment and service file') {
             steps {
                 script {
-                    withEnv(['KUBECONFIG=/home/jenkins/.kube/config']) {
-                    sh 'kubectl get nodes'
+                    kubernetesDeploy configs: 'deploymentsvc.yaml', kubeconfigId: 'kubernetes_config',  verbose: true
                 }
-                   // sh 'kubectl get nodes'
-                   // kubernetesDeploy configs: 'deploymentsvc.yaml', kubeconfigId: 'kubernetes_config',  verbose: true
-                }
+                   }
             }
         }
     }
