@@ -33,10 +33,13 @@ pipeline {
 
         stage('Deploy deployment and service file') {
             steps {
-                script {
-                    sh 'kubectl config view'
-                    sh 'kubectl get nodes'
-                    kubernetesDeploy configs: 'deploymentsvc.yaml', kubeconfigId: 'kubernetes_config'
+                // Use the stored kubeconfig from Jenkins credentials
+                withCredentials([file(credentialsId: 'minikube-kubeconfig', variable: 'KUBECONFIG')]) {
+                    script {
+                        // Now you can use kubectl commands or the Kubernetes plugin to deploy
+                        sh "kubectl get nodes"  // Example to verify access
+                        kubernetesDeploy configs: 'deploymentsvc.yaml', kubeconfigId: 'minikube-kubeconfig'
+                    }
                 }
             }
         }
