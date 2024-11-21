@@ -36,8 +36,7 @@ pipeline {
                 script {
                     kubernetesDeploy configs: 'deploymentsvc.yaml', kubeconfigId: 'kubernetes_config',  verbose: true
                 }
-                   }
             }
         }
-    }
+        }
 }
