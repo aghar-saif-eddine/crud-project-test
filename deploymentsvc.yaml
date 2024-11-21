@@ -2,23 +2,28 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: symfonyapp-deployment
+  labels:
+    app: symfonyapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: symfonyapp-deployment
+      app: symfonyapp
   template:
     metadata:
       labels:
-        app: symfonyapp-deployment
+        app: symfonyapp
     spec:
       containers:
-      - name: symfonyapp-deployment
-        image: saif1198/symfonyapp
+      - name: symfonyapp-container
+        image: saif1198/symfonyapp:latest  # Ensure that the tag is specified for the image (e.g., latest)
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
-
+        env:
+        - name: ENV_VARIABLE_NAME   # If any environment variables are needed
+          value: "some_value"
+        
 ---
 apiVersion: v1
 kind: Service
@@ -26,9 +31,9 @@ metadata:
   name: symfonyapp-service
 spec:
   selector:
-    app: symfonyapp-deployment
+    app: symfonyapp
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
-  type: NodePort
+    - protocol: TCP
+      port: 80      # Port exposed by the service
+      targetPort: 80 # Port the container is listening on
+  type: NodePort   # If you want the service accessible externally
