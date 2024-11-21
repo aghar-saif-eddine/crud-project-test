@@ -37,18 +37,23 @@ pipeline {
                  // Use the stored kubeconfig from Jenkins credentials
                 withCredentials([file(credentialsId: 'minikube-kubeconfig', variable: 'KUBECONFIG')]) {
                     script {
-                        sh "whoami"
-                        sh "echo 'Using KUBECONFIG: $KUBECONFIG'"
-                        sh "cat $KUBECONFIG"
+
+                        sh '''#!/bin/bash
+                            echo "Using KUBECONFIG: $KUBECONFIG"
+                            kubectl get nodes --v=9
+                            '''
+                        //sh "whoami"
+                      //  sh "echo 'Using KUBECONFIG: $KUBECONFIG'"
+                        //sh "cat $KUBECONFIG"
 
                         // Verify access to the Kubernetes cluster
-                        sh "kubectl get nodes --v=9" // Verbose output for debugging
+                       // sh "kubectl get nodes --v=9" // Verbose output for debugging
 
                         // Deploy the Kubernetes configuration using the kubeconfig
-                        kubernetesDeploy(
-                            configs: 'deploymentsvc.yaml',  // Path to your Kubernetes YAML file
-                            kubeconfigId: 'minikube-kubeconfig'  // This should match your credentialsId
-                        )
+                        //kubernetesDeploy(
+                        //    configs: 'deploymentsvc.yaml',  // Path to your Kubernetes YAML file
+                        //    kubeconfigId: 'minikube-kubeconfig'  // This should match your credentialsId
+                        //)
                     }
                 }
             }
