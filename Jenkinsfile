@@ -38,7 +38,7 @@ pipeline {
                 withCredentials([file(credentialsId: 'minikube-kubeconfig', variable: 'KUBECONFIG')]) {
                     script {
                         // Verify access to Kubernetes cluster by running a kubectl command
-                        //sh "kubectl get nodes"  // This will list the nodes in your cluster
+                        sh "kubectl get nodes"  // This will list the nodes in your cluster
 
                         // Deploy the Kubernetes configuration using the kubeconfig
                         kubernetesDeploy(
