@@ -35,7 +35,7 @@ pipeline {
             steps {
 
                  // Use the stored kubeconfig from Jenkins credentials
-                withEnv(["KUBECONFIG=/home/saifeddine-aghar/.minikube/profiles/minikube/config"]) {
+                withCredentials([file(credentialsId: 'minikube-kubeconfig', variable: 'KUBECONFIG')]) {
                     script {
                         // Verify access to Kubernetes cluster by running a kubectl command
                         sh "kubectl get nodes"  // This will list the nodes in your cluster
@@ -49,5 +49,5 @@ pipeline {
                 }
             }
         }
-    }
+        }
 }
