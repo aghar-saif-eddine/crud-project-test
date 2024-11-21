@@ -37,6 +37,7 @@ pipeline {
                  // Use the stored kubeconfig from Jenkins credentials
                 withCredentials([file(credentialsId: 'minikube-kubeconfig', variable: 'KUBECONFIG')]) {
                     script {
+                        sh "whoami"
                         sh "echo 'Using KUBECONFIG: $KUBECONFIG'"
                         sh "cat $KUBECONFIG"
 
