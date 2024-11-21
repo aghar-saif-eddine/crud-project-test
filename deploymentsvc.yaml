@@ -16,8 +16,8 @@ spec:
         app: symfonyapp-deployment
     spec:
       containers:
-      - name: symfonyapp-deployment
-        image: saif1198/symfonyapp  # Ensure that the tag is specified for the image (e.g., latest)
+      - name: symfonyapp-container
+        image: saif1198/symfonyapp
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
